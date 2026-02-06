@@ -76,48 +76,14 @@ def patch_hints(editor: PatcherEditor, hints: list[dict]):
         apply_text_patches(editor, pages)
 
 
-_PROJECT_MEMBERS = {
-    "Project Leads": [
-        "Henrique 'Darkszero' Gemignani",
-        "duncathan_salt",
-    ],
-    "Game Patching": [
-        "stuckpixel",
-        "ScorelessPine",
-        "Arcanox",
-        "Migs",
-        "hyperbola0",
-        "Thanatos",
-        "Mayberry",
-    ],
-    "Logic Database": [
-        "KirbymastaH",
-        "Dyceron",
-        "XenoWars",
-        "Hugoshido",
-        "Tyranisaur",
-        "Mayberry",
-        "Arcanox",
-    ],
-    "Additional Art": [
-        "BigSharksZ",
-        "SkyTheLucario",
-        "tezar tantular",
-        "hyperbola0",
-    ],
-    "     ": [
-        "With contributions from many others.",
-    ]
-}
+_PROJECT_MEMBERS = {}
 
 
 def patch_credits(editor: PatcherEditor, spoiler_log: dict[str, str]):
     text = editor.get_file("system/localization/credits.txt", Txt)
     ordered_credits = list(text.strings.items())
 
-    rando_credits = [
-        ("Randomizer Credits", "_TITLE"),
-    ]
+    rando_credits = []
 
     for group, group_members in _PROJECT_MEMBERS.items():
         rando_credits.append((group, "_SUBTITLE"))
@@ -125,15 +91,15 @@ def patch_credits(editor: PatcherEditor, spoiler_log: dict[str, str]):
             rando_credits.append((member, ""))
 
     if spoiler_log:
-        rando_credits.append(("     ", "_SUBTITLE"))
-        rando_credits.append(("Major Item Locations", "_TITLE"))
+#        rando_credits.append(("     ", "_SUBTITLE"))
+#        rando_credits.append(("Major Item Locations", "_TITLE"))
         for item, loc in spoiler_log.items():
             rando_credits.append((item, "_SUBTITLE"))
             rando_credits.append((loc, ""))
 
     rando_credits.append(("     ", "_SUBTITLE"))
 
-    ordered_credits[1:1] = [
+    ordered_credits[0:0] = [
         (f"CREDIT_R_{i:03}{prefix}", item)
         for i, (item, prefix) in enumerate(rando_credits)
     ]

@@ -189,14 +189,14 @@ def activate_emmi_zones(editor: PatcherEditor):
 
     # Remove the cutscene that introduces the speed emmi
     # This causes the border of the zone to not be revealed, but it should be possible to do that in another way
-    editor.remove_entity(
-        {
-            "scenario": "s030_baselab",
-            "sublayer": "cutscenes",
-            "actor": "cutscenetrigger_39"
-        },
-        None,
-    )
+    # editor.remove_entity(
+    #     {
+    #         "scenario": "s030_baselab",
+    #         "sublayer": "cutscenes",
+    #         "actor": "cutscenetrigger_39"
+    #     },
+    #     None,
+    # )
 
 
 def fix_backdoor_white_cu(editor: PatcherEditor):
@@ -415,14 +415,14 @@ def move_artaria_missile_tank(editor: PatcherEditor):
 def apply_static_fixes(editor: PatcherEditor):
     remove_problematic_x_layers(editor)
     activate_emmi_zones(editor)
-    apply_one_sided_door_fixes(editor)
+    # apply_one_sided_door_fixes(editor)
     apply_kraid_fixes(editor)
     apply_corpius_fixes(editor)
     fix_backdoor_white_cu(editor)
     patch_corpius_checkpoints(editor)
     apply_experiment_fixes(editor)
     apply_drogyga_fixes(editor)
-    apply_main_menu_fixes(editor)
+    # apply_main_menu_fixes(editor)
     disable_hanubia_cutscene(editor)
     fix_map_icons(editor.map_icon_editor)
     move_artaria_missile_tank(editor)

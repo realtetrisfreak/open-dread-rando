@@ -4,6 +4,7 @@ import shutil
 import typing
 from pathlib import Path
 
+# import open_dread_rando_exlaunch
 from construct import ListContainer
 from mercury_engine_data_structures.file_tree_editor import OutputFormat
 
@@ -16,7 +17,17 @@ from open_dread_rando.files import files_path
 from open_dread_rando.logger import LOG
 from open_dread_rando.misc_patches import elevator, lua_util
 from open_dread_rando.misc_patches.actor_patcher import apply_actor_patches
+from open_dread_rando.misc_patches.actor_patcher import apply_actor_patches_artaria
+from open_dread_rando.misc_patches.actor_patcher import apply_actor_patches_burenia
+from open_dread_rando.misc_patches.actor_patcher import apply_actor_patches_cataris
+from open_dread_rando.misc_patches.actor_patcher import apply_actor_patches_dairon
+from open_dread_rando.misc_patches.actor_patcher import apply_actor_patches_elun
+from open_dread_rando.misc_patches.actor_patcher import apply_actor_patches_ferenia
+from open_dread_rando.misc_patches.actor_patcher import apply_actor_patches_ghavoran
+from open_dread_rando.misc_patches.actor_patcher import apply_actor_patches_hanubia
+from open_dread_rando.misc_patches.actor_patcher import apply_actor_patches_itorash
 from open_dread_rando.misc_patches.exefs import include_depackager, patch_exefs
+# from open_dread_rando.misc_patches.exefs import patch_exefs
 from open_dread_rando.misc_patches.model_patcher import generate_custom_models
 from open_dread_rando.misc_patches.sprite_patches import patch_sprites
 from open_dread_rando.misc_patches.text_patches import apply_text_patches, patch_credits, patch_hints, patch_text
@@ -26,7 +37,7 @@ from open_dread_rando.output_config import output_format_for_category, output_pa
 from open_dread_rando.patcher_editor import PatcherEditor
 from open_dread_rando.pickups.lua_editor import LuaEditor
 from open_dread_rando.pickups.pickup import pickup_object_for
-from open_dread_rando.pickups.split_pickups import patch_split_pickups, update_starting_inventory_split_pickups
+# from open_dread_rando.pickups.split_pickups import patch_split_pickups, update_starting_inventory_split_pickups
 from open_dread_rando.specific_patches import game_patches
 from open_dread_rando.specific_patches.environmental_damage import apply_constant_damage
 from open_dread_rando.specific_patches.mass_delete_actors import mass_delete_actors
@@ -74,7 +85,7 @@ def create_custom_init(editor: PatcherEditor, configuration: dict) -> str:
         "ITEM_WEAPON_POWER_BEAM": 1,
         "ITEM_WEAPON_MISSILE_LAUNCHER": 1,
     })
-    inventory = update_starting_inventory_split_pickups(inventory)
+    # inventory = update_starting_inventory_split_pickups(inventory)
 
     # Game doesn't like to start if some fields are missing, like ITEM_WEAPON_POWER_BOMB_MAX
     final_inventory = {
@@ -139,7 +150,7 @@ def create_collision_camera_table(editor: PatcherEditor, configuration: dict):
 
 
 def patch_pickups(editor: PatcherEditor, lua_scripts: LuaEditor, pickups_config: list[dict], configuration: dict):
-    patch_split_pickups(editor)
+    # patch_split_pickups(editor)
 
     # add to the TOC
     editor.add_new_asset("actors/items/randomizer_powerup/scripts/randomizer_powerup.lc", b'', [])
@@ -277,6 +288,15 @@ def apply_patches(editor: PatcherEditor, lua_editor: LuaEditor, configuration: d
 
     # Actor patches
     apply_actor_patches(editor, configuration.get("actor_patches"))
+    apply_actor_patches_artaria(editor, configuration.get("actor_patches"))
+    apply_actor_patches_burenia(editor, configuration.get("actor_patches"))
+    apply_actor_patches_cataris(editor, configuration.get("actor_patches"))
+    apply_actor_patches_dairon(editor, configuration.get("actor_patches"))
+    apply_actor_patches_elun(editor, configuration.get("actor_patches"))
+    apply_actor_patches_ferenia(editor, configuration.get("actor_patches"))
+    apply_actor_patches_ghavoran(editor, configuration.get("actor_patches"))
+    apply_actor_patches_hanubia(editor, configuration.get("actor_patches"))
+    apply_actor_patches_itorash(editor, configuration.get("actor_patches"))
 
     # remote connector disconnect symbol
     patch_sprites(editor)
@@ -308,6 +328,7 @@ def patch_extracted(input_path: Path, output_path: Path, configuration: dict):
 
     if output_format == OutputFormat.ROMFS:
         include_depackager(out_exefs)
+        # open_dread_rando_exlaunch.include_depackager(out_exefs)
 
     LOG.info("Saving modified lua scripts")
     lua_editor.save_modifications(editor)

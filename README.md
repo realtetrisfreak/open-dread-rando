@@ -1,5 +1,9 @@
+# Important
+This fork contains an experimental branch that isn't affiliated with or endorsed by Randovania.
+Experimental branch is intended for use in [Plandovania](https://github.com/realtetrisfreak/plandovania/).
+
 # Open Dread Rando
-Open Source randomizer patcher for Metroid Dread. Intended for use in [Randovania](https://randovania.github.io/).
+Open Source randomizer patcher for Metroid Dread. 
 Currently supports patching item pickups, starting items, and elevator/shuttle/teleportal destinations.
 
 ## Installation
