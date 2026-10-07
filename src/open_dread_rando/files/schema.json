@@ -552,6 +552,16 @@
                     "enum": ["unmodified", "never", "always"],
                     "description": "Change how the enky that appears in Artaria after defeating the EMMI spawns",
                     "default": "unmodified"
+                },
+                "remove_tutorial_popups": {
+                    "type": "boolean",
+                    "description": "Remove most of the text popups in Artaria and in Elun",
+                    "default": false
+                },
+                "remove_burenia_bots_vignette": {
+                    "type": "boolean",
+                    "description": "Removes concealing vignette near Green Teleportal in Burenia",
+                    "default": false
                 }
             },
             "additionalProperties": false

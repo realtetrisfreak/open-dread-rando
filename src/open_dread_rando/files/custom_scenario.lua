@@ -116,7 +116,7 @@ function Scenario.InitScenario(arg1, arg2, arg3, arg4)
     if not CurrentScenario.HasRandomizerChanges then
         return Scenario.ShowFatalErrorMessage({
             "{c2}Error!{c0}|Unable to find modifications to the level data.",
-            "Please verify if the mod was installed properly.|Returning to title screen.",
+            "Verify exefs_patches location.|Returning to title screen.",
         })
     end
 
@@ -199,34 +199,34 @@ function Scenario.SetTeleportalUsed(actor)
     Blackboard.SetProp("GAME_PROGRESS", "RandoUnlockTeleportal", "s", target_id)
 end
 
-local scenarios_with_teleport = {
-    s010_cave = "StartPoint0",
-    s020_magma = "savestation_000",
-    s030_baselab = "savestation_000",
-    s040_aqua = "savestation_000",
-    s050_forest = "savestation_000",
-    s070_basesanc = "savestation_000"
-}
+-- local scenarios_with_teleport = {
+--     s010_cave = "StartPoint0",
+--     s020_magma = "savestation_000",
+--     s030_baselab = "savestation_000",
+--     s040_aqua = "savestation_000",
+--     s050_forest = "savestation_000",
+--     s070_basesanc = "savestation_000"
+-- }
 
-function Scenario.VisitAllTeleportScenarios()
-    if CurrentScenarioID == "s090_skybase" then
-        Blackboard.SetProp("GAME_PROGRESS", "RandoVisitScenarios", "b", true)
-    end
+-- function Scenario.VisitAllTeleportScenarios()
+--     if CurrentScenarioID == "s090_skybase" then
+--         Blackboard.SetProp("GAME_PROGRESS", "RandoVisitScenarios", "b", true)
+--     end
 
-    if not Blackboard.GetProp("GAME_PROGRESS", "RandoVisitScenarios") then return end
+--     if not Blackboard.GetProp("GAME_PROGRESS", "RandoVisitScenarios") then return end
 
-    for scenario, spawn in pairs(scenarios_with_teleport) do
-        if not Blackboard.GetProp("GAME_PROGRESS", "RandoVisited"..scenario) then
-            Game.LoadScenario("c10_samus", scenario, spawn, "", 1)
-            return true
-        end
-    end
+--     for scenario, spawn in pairs(scenarios_with_teleport) do
+--         if not Blackboard.GetProp("GAME_PROGRESS", "RandoVisited"..scenario) then
+--             Game.LoadScenario("c10_samus", scenario, spawn, "", 1)
+--             return true
+--         end
+--     end
 
-    Blackboard.SetProp("GAME_PROGRESS", "RandoVisitScenarios", "b", false)
-    if CurrentScenarioID == "s090_skybase" then return false end
-    Game.LoadScenario("c10_samus", "s090_skybase", "elevator_shipyard_000_platform", "", 1)
-    return true
-end
+--     Blackboard.SetProp("GAME_PROGRESS", "RandoVisitScenarios", "b", false)
+--     if CurrentScenarioID == "s090_skybase" then return false end
+--     Game.LoadScenario("c10_samus", "s090_skybase", "elevator_shipyard_000_platform", "", 1)
+--     return true
+-- end
 
 function Scenario._UpdateProgressiveItemModels()
     for name, actordef in pairs(Game.GetEntities()) do
@@ -248,39 +248,39 @@ function Scenario.UpdateProgressiveItemModels()
     Game.AddSF(0.1, "Scenario._UpdateProgressiveItemModels", "")
 end
 
-Scenario._BlastShieldTypes = {
-    doorshieldsupermissile = {
-        item = "ITEM_WEAPON_SUPER_MISSILE",
-        damage = {"SUPER_MISSILE", "ICE_MISSILE"},
-    },
-    doorwidebeam = {
-        item = "ITEM_WEAPON_WIDE_BEAM",
-        damage = {"POWER_BEAM", "WIDE_BEAM"}
-    },
-    door_shield_plasma = {
-        item = "ITEM_WEAPON_PLASMA_BEAM",
-        damage = {"PLASMA_BEAM"}
-    },
-    doorshieldbomb = {
-        item = "ITEM_WEAPON_BOMB",
-        damage = {"BOMB"}
-    }
-}
-function Scenario._UpdateBlastShields()
-    for name, actordef in pairs(Game.GetEntities()) do
-        shield_type = Scenario._BlastShieldTypes[actordef]
-        if shield_type ~= nil and RandomizerPowerup.HasItem(shield_type.item) then
-            local shield = Game.GetActor(name)
-            for _, damage in ipairs(shield_type.damage) do
-                shield.LIFE:AddDamageSource(damage)
-            end
-        end
-    end
-end
+-- Scenario._BlastShieldTypes = {
+--     doorshieldsupermissile = {
+--         item = "ITEM_WEAPON_SUPER_MISSILE",
+--         damage = {"SUPER_MISSILE", "ICE_MISSILE"},
+--     },
+--     doorwidebeam = {
+--         item = "ITEM_WEAPON_WIDE_BEAM",
+--         damage = {"POWER_BEAM", "WIDE_BEAM"}
+--     },
+--     door_shield_plasma = {
+--         item = "ITEM_WEAPON_PLASMA_BEAM",
+--         damage = {"PLASMA_BEAM"}
+--     },
+--     doorshieldbomb = {
+--         item = "ITEM_WEAPON_BOMB",
+--         damage = {"BOMB"}
+--     }
+-- }
+-- function Scenario._UpdateBlastShields()
+--     for name, actordef in pairs(Game.GetEntities()) do
+--         shield_type = Scenario._BlastShieldTypes[actordef]
+--         if shield_type ~= nil and RandomizerPowerup.HasItem(shield_type.item) then
+--             local shield = Game.GetActor(name)
+--             for _, damage in ipairs(shield_type.damage) do
+--                 shield.LIFE:AddDamageSource(damage)
+--             end
+--         end
+--     end
+-- end
 
-function Scenario.UpdateBlastShields()
-    Game.AddSF(0.1, "Scenario._UpdateBlastShields", "")
-end
+-- function Scenario.UpdateBlastShields()
+--     Game.AddSF(0.1, "Scenario._UpdateBlastShields", "")
+-- end
 
 local original_onload = Scenario.OnLoadScenarioFinished
 function Scenario.OnLoadScenarioFinished()
@@ -317,12 +317,12 @@ function Scenario.OnLoadScenarioFinished()
     Scenario.ShowingPopup = false
     Scenario.ShowNextAsyncPopup()
 
-    Blackboard.SetProp("GAME_PROGRESS", "RandoVisited" .. CurrentScenarioID, "b", true)
+    -- Blackboard.SetProp("GAME_PROGRESS", "RandoVisited" .. CurrentScenarioID, "b", true)
 
-    if Scenario.VisitAllTeleportScenarios() then return end
+    -- if Scenario.VisitAllTeleportScenarios() then return end
 
     Scenario.UpdateProgressiveItemModels()
-    Scenario.UpdateBlastShields()
+    -- Scenario.UpdateBlastShields()
 
     Blackboard.SetProp("GAME_PROGRESS", "RandoMapSeen" .. CurrentScenarioID, "b", true)
 
@@ -376,7 +376,10 @@ function Scenario.CheckWarpToStart(actor)
 
     Input.LogInputs()
     if Input.CheckInputs("ZL", "ZR") then
+        -- Loads scenario upon Warp to Save
         Game.LoadScenario("c10_samus", Init.sStartingScenario, Init.sStartingActor, "", 1)
+        -- Displaces Samus
+        -- Scenario.TeleportToStartPoint(Init.sStartingScenario, Init.sStartingActor)
     end
 end
 
@@ -388,6 +391,48 @@ end
 function Scenario.CheckDebugInputs()
     push_debug_print_override()
     local delay = 0
+
+-- Can remove following if loading on Warp to Start
+-- fTeleportStartDelay = 0.2
+-- fTeleportFadeOutTime = 0.5
+-- fTeleportBlackScreenTime = 0.5
+-- fTeleportFadeInTime = 0.4
+
+-- function Scenario.TeleportToStartPoint(scenario, startpoint)
+--     if Scenario.CurrentScenarioID ~= scenario then
+--         Game.LoadScenario("c10_samus", scenario, startpoint, "", 1)
+--     else
+--         Scenario.TeleportToLocalStartPoint(startpoint)
+--     end
+-- end
+
+-- function Scenario.TeleportToLocalStartPoint(startpoint)
+--     Scenario.DisableInput()
+--     if startpoint == nil then
+--         startpoint = Blackboard.GetProp(Game.GetPlayerBlackboardSectionName(), "StartPoint")
+--     end
+--     Game.AddSF(fTeleportStartDelay, "Scenario.OnTeleportFadeOut", "s", startpoint)
+-- end
+
+
+-- function Scenario.OnTeleportFadeOut(startpoint)
+--     Game.FadeOut(fTeleportFadeOutTime)
+--     Game.AddSF(fTeleportFadeOutTime + fTeleportBlackScreenTime, "Scenario.OnStartPointTeleport", "s", startpoint)
+-- end
+
+
+-- function Scenario.OnStartPointTeleport(startpoint)
+--     Game.TeleportEntityToStartPoint(Game.GetPlayerName(), startpoint, fTeleportFadeInTime, true)
+--     Game.FadeIn(0.1, fTeleportFadeInTime)
+--     Game.AddSF(0, "Scenario.OnTeleportFinished", "")
+-- end
+
+
+-- function Scenario.OnTeleportFinished()
+--     Scenario.EnableInput()
+--     Game.ReinitPlayerFromBlackboard()
+-- end
+
 
     if Scenario.IsUserInteractionEnabled(true) then
         if Input.CheckInputs("ZL", "ZR", "DPAD_UP") then
@@ -410,12 +455,12 @@ end
 
 function Scenario.InitFromBlackboard()
     RandomizerPowerup.ApplyTunableChanges()
-    RandomizerPowerup.UpdateWeapons()
+    -- RandomizerPowerup.UpdateWeapons()
 end
 
 function Scenario.OnSubAreaChange(old_subarea, old_actorgroup, new_subarea, new_actorgroup, disable_fade)
     Scenario.UpdateProgressiveItemModels()
-    Scenario.UpdateBlastShields()
+    -- Scenario.UpdateBlastShields()
     Scenario.UpdateRoomName(new_subarea)
 end
 

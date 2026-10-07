@@ -298,10 +298,14 @@ def fix_backdoor_white_cu(editor: PatcherEditor):
 
     for group in [
         "eg_collision_camera_018_Default",
-        "eg_collision_camera_090_Default",
         "eg_collision_camera_049_Default",
-        "eg_collision_camera_090_PostXRelease",
+        "eg_collision_camera_090_Default",
+        "eg_collision_camera_018_PostEmmy",
+        "eg_collision_camera_049_PostEmmy",
+        "eg_collision_camera_090_PostEmmy",
+        "eg_collision_camera_018_PostXRelease",
         "eg_collision_camera_049_PostXRelease",
+        "eg_collision_camera_090_PostXRelease"
     ]:
         cave.add_actor_to_group(group, new_door["sName"])
 
@@ -456,6 +460,37 @@ def move_artaria_missile_tank(editor: PatcherEditor):
     artaria_map.items[actor_ref["actor"]].vPos[0] = new_x_pos
 
 
+def lower_waterzone_left_of_screw_attack(editor: PatcherEditor):
+    actor = editor.resolve_actor_reference({
+        "scenario": "s010_cave",
+        "actor": "waterzone_000",
+    })
+
+    actor.pComponents.LOGICSHAPE.pLogicShape.oPolyCollection.vPolys[0].oSegmentData[0].vPos[1] = 175.0
+    actor.pComponents.LOGICSHAPE.pLogicShape.oPolyCollection.vPolys[0].oSegmentData[3].vPos[1] = 175.0
+
+
+def lower_lavazone_above_cataris_purple(editor: PatcherEditor):
+    actor = editor.resolve_actor_reference({
+        "scenario": "s020_magma",
+        "actor": "lavazone_006",
+    })
+
+    actor.pComponents.LOGICSHAPE.pLogicShape.oPolyCollection.vPolys[0].oSegmentData[0].vPos[1] = 175.0
+    actor.pComponents.LOGICSHAPE.pLogicShape.oPolyCollection.vPolys[0].oSegmentData[1].vPos[1] = 175.0
+
+
+def lower_waterzone_after_drogyga_defeated(editor: PatcherEditor):
+    actor = editor.resolve_actor_reference({
+        "scenario": "s040_aqua",
+        "sublayer": "Boss",
+        "actor": "waterzone_026",
+    })
+
+    actor.pComponents.LOGICSHAPE.pLogicShape.oPolyCollection.vPolys[0].oSegmentData[0].vPos[1] = 75.0
+    actor.pComponents.LOGICSHAPE.pLogicShape.oPolyCollection.vPolys[0].oSegmentData[3].vPos[1] = 75.0
+
+
 def apply_static_fixes(editor: PatcherEditor):
     remove_problematic_x_layers(editor)
     activate_emmi_zones(editor)
@@ -466,7 +501,10 @@ def apply_static_fixes(editor: PatcherEditor):
     patch_corpius_checkpoints(editor)
     apply_experiment_fixes(editor)
     apply_drogyga_fixes(editor)
-    apply_main_menu_fixes(editor)
+    # apply_main_menu_fixes(editor)
     disable_hanubia_cutscene(editor)
     fix_map_icons(editor.map_icon_editor)
     move_artaria_missile_tank(editor)
+    lower_waterzone_left_of_screw_attack(editor)
+    lower_lavazone_above_cataris_purple(editor)
+    lower_waterzone_after_drogyga_defeated(editor)

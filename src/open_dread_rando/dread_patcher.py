@@ -28,7 +28,7 @@ from open_dread_rando.output_config import output_format_for_category, output_pa
 from open_dread_rando.patcher_editor import PatcherEditor
 from open_dread_rando.pickups.lua_editor import LuaEditor
 from open_dread_rando.pickups.pickup import pickup_object_for
-from open_dread_rando.pickups.split_pickups import patch_split_pickups, update_starting_inventory_split_pickups
+# from open_dread_rando.pickups.split_pickups import patch_split_pickups, update_starting_inventory_split_pickups
 from open_dread_rando.specific_patches import game_patches
 from open_dread_rando.specific_patches.environmental_damage import apply_constant_damage
 from open_dread_rando.specific_patches.mass_delete_actors import mass_delete_actors
@@ -80,7 +80,7 @@ def create_custom_init(editor: PatcherEditor, configuration: dict) -> str:
             "ITEM_WEAPON_MISSILE_LAUNCHER": 1,
         }
     )
-    inventory = update_starting_inventory_split_pickups(inventory)
+    # inventory = update_starting_inventory_split_pickups(inventory)
 
     # Game doesn't like to start if some fields are missing, like ITEM_WEAPON_POWER_BOMB_MAX
     final_inventory = {
@@ -152,7 +152,7 @@ def create_collision_camera_table(editor: PatcherEditor, configuration: dict) ->
 def patch_pickups(
     editor: PatcherEditor, lua_scripts: LuaEditor, pickups_config: list[dict], configuration: dict
 ) -> None:
-    patch_split_pickups(editor)
+    # patch_split_pickups(editor)
 
     # add to the TOC
     editor.add_new_asset("actors/items/randomizer_powerup/scripts/randomizer_powerup.lc", b"", [])
