@@ -34,6 +34,12 @@ def apply_game_patches(editor: PatcherEditor, configuration: dict):
     if arbitrary_enky_mode != "unmodified":
         _remove_arbitrary_enky(editor, arbitrary_enky_mode)
 
+    if configuration["remove_tutorial_popups"]:
+        _remove_tutorial_popups(editor)
+
+    if configuration["remove_burenia_bots_vignette"]:
+        _remove_burenia_bots_vignette(editor)
+
 
 def _modify_raven_beak_damage_table(editor: PatcherEditor, mode: str):
     rb_bmsad = editor.get_file("actors/characters/chozocommander/charclasses/chozocommander.bmsad", Bmsad)
@@ -173,3 +179,114 @@ def _remove_arbitrary_enky(editor: PatcherEditor, mode: str):
         arbitrary_enky = editor.resolve_actor_reference(arbitrary_enky_reference)
 
         arbitrary_enky.pComponents.SPAWNGROUP.bAutoenabled = True
+
+
+def _remove_tutorial_popups(editor: PatcherEditor):
+    actors = [
+        {
+            "scenario": "s010_cave",
+            "actor": "SlideTutoTriggerEnter",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "SlideTutoTriggerExit",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "FreeAimTutoTriggerEnter",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "FreeAimTutoTriggerExit",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "MissileTutoObserver",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "MissileTutoTriggerEnter",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "MissileTutoTriggerExit",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "HiddenBlocksTutoTriggerEnter",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "HiddenBlocksTutoTriggerExit",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "MapOptionsTutoTriggerEnter",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "MapOptionsTutoTriggerExit",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "MeleeTutoTriggerEnter",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "MeleeTutoTriggerEnter_003",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "MeleeTutoTriggerEnter_002",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "MeleeTutoTriggerExit",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "MeleeTutoTriggerExit_002",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "MeleeTutoTriggerExit_003",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "MapRoomTutoTriggerEnter",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "MapRoomTutoTriggerExit",
+        },
+        {
+            "scenario": "s060_quarantine",
+            "actor": "TutoParasiteEnter",
+        },
+        {
+            "scenario": "s060_quarantine",
+            "actor": "TutoParasiteExit",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "SPRTutoTrigger_000",
+        },
+        {
+            "scenario": "s010_cave",
+            "actor": "SPBCentralUnitTutoTrigger",
+        },
+    ]
+
+    for actor in actors:
+        editor.remove_entity(actor, None)
+
+
+def _remove_burenia_bots_vignette(editor: PatcherEditor):
+    editor.remove_entity(
+        {
+            "scenario": "s040_aqua",
+            "sublayer": "breakables",
+            "actor": "breakablehint_002",
+        },
+        "mapHintGeos",
+    )
