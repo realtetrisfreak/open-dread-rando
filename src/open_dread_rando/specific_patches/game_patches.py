@@ -279,7 +279,7 @@ def _remove_tutorial_popups(editor: PatcherEditor):
     ]
 
     for actor in actors:
-        editor.remove_entity(actor)
+        editor.remove_entity(actor, None)
 
 
 def _remove_burenia_bots_vignette(editor: PatcherEditor):
