@@ -92,8 +92,8 @@ function Scenario.InitScenario(arg1, arg2, arg3, arg4)
     -- This function is added via an exefs patch. It not existing means either broken install or unknown executable
     if not Game.HasRandomizerPatches then
         return Scenario.ShowFatalErrorMessage({
-            "{c2}Error!{c0}|Unsupported Metroid Dread version.",
-            "Only {c6}1.0.0{c0} and {c6}2.1.0{c0} are supported.|Returning to title screen.",
+            "{c2}Error!{c0}|Unable to activate exefs .ips patches.|Make sure Metroid Dread is version {c6}1.0.0{c0} or {c6}2.1.0{c0}",
+            "Make sure your exefs folder contains both .ips patches.|Returning to title screen.",
         })
     end
 
@@ -116,7 +116,7 @@ function Scenario.InitScenario(arg1, arg2, arg3, arg4)
     if not CurrentScenario.HasRandomizerChanges then
         return Scenario.ShowFatalErrorMessage({
             "{c2}Error!{c0}|Unable to find modifications to the level data.",
-            "Please verify if the mod was installed properly.|Returning to title screen.",
+            "Make sure your exefs_patches folder|is in the correct location.|Returning to title screen.",
         })
     end
 
